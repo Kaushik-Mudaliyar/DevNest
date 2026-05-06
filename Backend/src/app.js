@@ -7,7 +7,7 @@ import rateLimit from "express-rate-limit";
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:3000", "https://dev-nest-ochre.vercel.app"],
     credentials: true,
   }),
 );
