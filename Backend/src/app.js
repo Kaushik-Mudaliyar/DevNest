@@ -7,20 +7,20 @@ import rateLimit from "express-rate-limit";
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://dev-nest-ochre.vercel.app"],
+    origin: ["http://localhost:5173", "https://dev-nest-ochre.vercel.app"],
     credentials: true,
   }),
 );
+// app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(helmet());
-app.use(
-  rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
-  }),
-);
+// app.use(
+//   rateLimit({
+//     windowMs: 15 * 60 * 1000,
+//     max: 100,
+//   }),
+// );
 // import routes
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
