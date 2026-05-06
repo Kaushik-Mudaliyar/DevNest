@@ -97,12 +97,15 @@ const deletePost = asyncHandler(async (req, res) => {
 
   await post.deleteOne();
 
+
   const oldPostImage = post.image;
   const url = new URL(oldPostImage);
   const path = url.pathname;
   const publicIdWithExtension = path.split("/").pop();
 
+
   const public_id = publicIdWithExtension.split(".")[0];
+;
   const deletedResponse = await deleteOnCloudinary(public_id, "image");
   if (deletedResponse?.result === "ok") {
     console.log("Old thumbnail file deleted successfully");

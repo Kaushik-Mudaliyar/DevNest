@@ -39,8 +39,8 @@ Thumbs.db
 
 # Temporary files
 tmp/
-temp/
+public/temp/*
+!public/temp/.gitkeep
 
 # Uploaded files (if storing locally)
-public/temp/
 uploads/
