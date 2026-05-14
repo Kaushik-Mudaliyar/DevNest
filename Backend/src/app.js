@@ -21,6 +21,14 @@ app.use(cookieParser());
 //     max: 100,
 //   }),
 // );
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Server is running",
+  });
+});
+
 // import routes
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";

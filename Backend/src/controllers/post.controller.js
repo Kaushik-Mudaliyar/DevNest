@@ -97,15 +97,12 @@ const deletePost = asyncHandler(async (req, res) => {
 
   await post.deleteOne();
 
-
   const oldPostImage = post.image;
   const url = new URL(oldPostImage);
   const path = url.pathname;
   const publicIdWithExtension = path.split("/").pop();
 
-
   const public_id = publicIdWithExtension.split(".")[0];
-;
   const deletedResponse = await deleteOnCloudinary(public_id, "image");
   if (deletedResponse?.result === "ok") {
     console.log("Old thumbnail file deleted successfully");
@@ -147,8 +144,23 @@ const getPostById = asyncHandler(async (req, res) => {
   const post = await postModel
     .findById(postId)
     .populate("author", "username email");
+
   if (!post) {
     throw new ApiError(404, "Post not found");
+  }
+
+  if (req.user) {
+    const alreadyViewed = post.viewedBy.some(
+      (id) => id.toString() === req.user._id.toString()
+    );
+
+    if (!alreadyViewed) {
+      post.views += 1;
+
+      post.viewedBy.push(req.user._id);
+
+      await post.save();
+    }
   }
 
   return res
@@ -156,4 +168,44 @@ const getPostById = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, post, "Post fetched successfully"));
 });
 
-export { createPost, updatePost, deletePost, getAllPosts, getPostById };
+const toggleLikePost = asyncHandler(async (req, res) => {
+  const { postId } = req.params;
+
+  const post = await postModel.findById(postId);
+
+  if (!post) {
+    throw new ApiError(404, "Post not found");
+  }
+
+  const userId = req.user._id;
+
+  const alreadyLiked = post.likes.includes(userId);
+
+  if (alreadyLiked) {
+    post.likes.pull(userId);
+  } else {
+    post.likes.push(userId);
+  }
+
+  await post.save();
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      {
+        likesCount: post.likes.length,
+        liked: !alreadyLiked,
+      },
+      alreadyLiked ? "Post unliked" : "Post liked",
+    ),
+  );
+});
+
+export {
+  createPost,
+  updatePost,
+  deletePost,
+  getAllPosts,
+  getPostById,
+  toggleLikePost,
+};

@@ -4,22 +4,31 @@ import { getPostById, deletePost } from "../api/postApi";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import Loader from "../components/Loader";
+import { Heart, Eye } from "lucide-react";
+import { toggleLikePost } from "../api/postApi.js";
 
 function PostDetailPage() {
   const { postId } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
 
+  const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const res = await getPostById(postId);
-        setPost(res.data.data);
+        const fetchedPost = res.data.data;
+
+        setPost(fetchedPost);
+
+        setLikesCount(fetchedPost.likes.length);
+
+        setLiked(fetchedPost.likes.includes(user?._id));
       } catch (error) {
         setError("Failed to fetch post");
       } finally {
@@ -43,6 +52,17 @@ function PostDetailPage() {
       toast.success("Post deleted successfully");
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
+    }
+  };
+
+  const handleLike = async () => {
+    try {
+      const res = await toggleLikePost(postId);
+
+      setLiked(res.data.data.liked);
+      setLikesCount(res.data.data.likesCount);
+    } catch (error) {
+      toast.error("Failed to like post");
     }
   };
 
@@ -75,6 +95,26 @@ function PostDetailPage() {
         <p className="text-gray-500 dark:text-gray-400 mb-6">
           By {post.author?.username || "Unknown"}
         </p>
+
+        <div className="flex items-center gap-6 mt-6 mb-6">
+          <button
+            onClick={handleLike}
+            className="flex items-center gap-2 text-gray-700 hover:text-red-500 transition"
+          >
+            <Heart
+              className={`w-5 h-5 transition ${
+                liked ? "fill-red-500 text-red-500" : ""
+              }`}
+            />
+
+            <span>{likesCount}</span>
+          </button>
+
+          <div className="flex items-center gap-2 text-gray-600">
+            <Eye className="w-5 h-5" />
+            <span>{post.views}</span>
+          </div>
+        </div>
 
         <div className="prose max-w-none text-lg text-gray-700 dark:text-gray-300 whitespace-pre-line">
           {post.content}

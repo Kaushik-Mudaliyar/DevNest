@@ -11,3 +11,6 @@ export const updatePost = (postId, formData) =>
   api.patch(`/post/${postId}`, formData);
 
 export const deletePost = (postId) => api.delete(`/post/${postId}`);
+
+export const toggleLikePost = (postId) =>
+  api.patch(`/post/${postId}/like`);
