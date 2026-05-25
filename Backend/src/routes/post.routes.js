@@ -4,6 +4,7 @@ import {
   deletePost,
   getAllPosts,
   getPostById,
+  searchPosts,
   toggleLikePost,
   updatePost,
 } from "../controllers/post.controller.js";
@@ -19,5 +20,6 @@ router.get("/:postId", optionalAuth, getPostById);
 router.patch("/:postId", authMiddleware, upload.single("image"), updatePost);
 router.patch("/:postId/like", authMiddleware, toggleLikePost);
 router.delete("/:postId", authMiddleware, deletePost);
+router.get("/search",authMiddleware,searchPosts)
 
 export default router;

@@ -113,21 +113,8 @@ const deletePost = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Post Deleted successfully"));
 });
 const getAllPosts = asyncHandler(async (req, res) => {
-  const { search } = req.query;
-
-  let filter = {};
-
-  if (search) {
-    filter = {
-      $or: [
-        { title: { $regex: search, $options: "i" } },
-        { content: { $regex: search, $options: "i" } },
-      ],
-    };
-  }
-
   const posts = await postModel
-    .find(filter)
+    .find()
     .populate("author", "username email")
     .sort({ createdAt: -1 });
   return res
@@ -151,7 +138,7 @@ const getPostById = asyncHandler(async (req, res) => {
 
   if (req.user) {
     const alreadyViewed = post.viewedBy.some(
-      (id) => id.toString() === req.user._id.toString()
+      (id) => id.toString() === req.user._id.toString(),
     );
 
     if (!alreadyViewed) {
@@ -201,6 +188,28 @@ const toggleLikePost = asyncHandler(async (req, res) => {
   );
 });
 
+const searchPosts = asyncHandler(async (req, res) => {
+  const { search } = req.query;
+
+  let filter = {};
+
+  if (search) {
+    filter = {
+      $or: [
+        { title: { $regex: search, $options: "i" } },
+        { content: { $regex: search, $options: "i" } },
+      ],
+    };
+  }
+  const posts = await postModel
+    .find(filter)
+    .populate("author", "username email")
+    .sort({ createdAt: -1 });
+  return res
+    .status(200)
+    .json(new ApiResponse(200, posts, "Searched posts successfully"));
+});
+
 export {
   createPost,
   updatePost,
@@ -208,4 +217,5 @@ export {
   getAllPosts,
   getPostById,
   toggleLikePost,
+  searchPosts
 };

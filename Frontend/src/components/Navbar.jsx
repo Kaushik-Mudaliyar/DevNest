@@ -47,18 +47,20 @@ function Navbar() {
           </Link>
 
           {/* Desktop Search */}
-          <form
-            onSubmit={handleSearch}
-            className="hidden md:block flex-1 max-w-md"
-          >
-            <input
-              type="text"
-              placeholder="Search posts..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </form>
+          {isAuthenticated && (
+            <form
+              onSubmit={handleSearch}
+              className="hidden md:block flex-1 max-w-md"
+            >
+              <input
+                type="text"
+                placeholder="Search posts..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </form>
+          )}
 
           {/* Right Actions */}
           <div className="flex items-center gap-3">
