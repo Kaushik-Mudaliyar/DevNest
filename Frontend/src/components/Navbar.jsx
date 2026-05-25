@@ -178,7 +178,7 @@ function Navbar() {
                 <Link
                   to="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-center text-white"
+                  className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-center dark:text-white"
                 >
                   Login
                 </Link>
