@@ -5,62 +5,49 @@ function HeroSection() {
   const { isAuthenticated } = useAuth();
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-950 py-14 sm:py-16 md:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        
-        {/* Heading */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
-          Share Ideas. Build Skills.
-          <br className="hidden sm:block" />
-          Grow with DevNest
-        </h1>
+    <section className="relative overflow-hidden bg-white dark:bg-gray-950 mb-10 sm:py-12 rounded-2xl">
+      
+      {/* Background Glow */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-0 left-1/2 h-112.5 w-112.5 -translate-x-1/2 rounded-full bg-blue-500/20 blur-3xl"></div>
+      </div>
 
-        {/* Subtext */}
-        <p className="mt-5 sm:mt-6 text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-          DevNest is a modern platform where developers and designers share
-          tutorials, tools, and insights to help each other grow.
-        </p>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="text-center">
 
-        {/* CTA Buttons */}
-        <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
-          {!isAuthenticated && (
-            <Link
-              to="/register"
-              className="w-full sm:w-auto px-6 py-3 rounded-lg bg-black dark:bg-white text-white dark:text-black font-medium hover:opacity-90 transition"
-            >
-              Get Started
-            </Link>
-          )}
-        </div>
-
-        {/* Stats */}
-        <div className="mt-12 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
-          <div>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">
-              100+
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Articles
-            </p>
+          {/* Badge */}
+          <div className="inline-flex items-center rounded-full border border-gray-300 dark:border-gray-700 px-4 py-1 text-sm text-gray-600 dark:text-gray-300 mb-6">
+            🚀 A platform for developers & creators
           </div>
 
-          <div>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">
-              50+
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Developers
-            </p>
+          {/* Heading */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-tight">
+            Share Ideas.
+            <span className="block bg-linear-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+              Build Skills.
+            </span>
+            Grow with DevNest
+          </h1>
+
+          {/* Subtext */}
+          <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+            DevNest is a modern community where developers and designers share
+            tutorials, tools, and insights to learn, build, and grow together.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+            
+            {!isAuthenticated && (
+              <Link
+                to="/register"
+                className="px-8 py-3 rounded-xl bg-black dark:bg-white text-white dark:text-black font-medium shadow-md hover:scale-105 transition duration-300"
+              >
+                Get Started
+              </Link>
+            )}
           </div>
 
-          <div>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">
-              24/7
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Learning
-            </p>
-          </div>
         </div>
       </div>
     </section>
