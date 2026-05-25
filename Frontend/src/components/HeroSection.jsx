@@ -5,8 +5,7 @@ function HeroSection() {
   const { isAuthenticated } = useAuth();
 
   return (
-    <section className="relative overflow-hidden bg-white dark:bg-gray-950 mb-10 sm:py-12 rounded-2xl">
-      
+    <section className="relative overflow-hidden bg-white dark:bg-gray-950 mt-4 mb-20 sm:py-12 rounded-2xl">
       {/* Background Glow */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-0 left-1/2 h-112.5 w-112.5 -translate-x-1/2 rounded-full bg-blue-500/20 blur-3xl"></div>
@@ -14,7 +13,6 @@ function HeroSection() {
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center">
-
           {/* Badge */}
           <div className="inline-flex items-center rounded-full border border-gray-300 dark:border-gray-700 px-4 py-1 text-sm text-gray-600 dark:text-gray-300 mb-6">
             🚀 A platform for developers & creators
@@ -37,7 +35,6 @@ function HeroSection() {
 
           {/* CTA Buttons */}
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-            
             {!isAuthenticated && (
               <Link
                 to="/register"
@@ -47,7 +44,6 @@ function HeroSection() {
               </Link>
             )}
           </div>
-
         </div>
       </div>
     </section>

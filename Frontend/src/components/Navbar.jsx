@@ -133,24 +133,23 @@ function Navbar() {
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 flex flex-col gap-3">
-            <form onSubmit={handleSearch} className="flex gap-2">
-              <input
-                type="text"
-                placeholder="Search posts..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg px-4 py-2 text-sm"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 rounded-lg bg-black dark:bg-white text-white dark:text-black"
-              >
-                Search
-              </button>
-            </form>
-
             {isAuthenticated ? (
               <>
+                <form onSubmit={handleSearch} className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Search posts..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg px-4 py-2 text-sm"
+                  />
+                  <button
+                    type="submit"
+                    className="px-4 py-2 rounded-lg bg-black dark:bg-white text-white dark:text-black"
+                  >
+                    Search
+                  </button>
+                </form>
                 <Link
                   to="/create-post"
                   onClick={() => setMobileMenuOpen(false)}
