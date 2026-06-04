@@ -1,13 +1,7 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
 function PostCard({ post }) {
   return (
     <>
-      <Helmet>
-        <title>{post.title} | DevNest</title>
-
-        <meta name="description" content={post.content.slice(0, 150)} />
-      </Helmet>
       <Link to={`/post/${post._id}`} className="group block">
         <article className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-xl hover:-translate-y-1 transition duration-300">
           <div className="overflow-hidden">

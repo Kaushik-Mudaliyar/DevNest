@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import Loader from "../components/Loader";
 import { Heart, Eye } from "lucide-react";
 import { toggleLikePost } from "../api/postApi.js";
-
+import { Helmet } from "react-helmet";
 function PostDetailPage() {
   const { postId } = useParams();
   const navigate = useNavigate();
@@ -73,6 +73,12 @@ function PostDetailPage() {
   const isOwner = user?._id === post.author?._id;
 
   return (
+    <>
+     <Helmet>
+        <title>{post.title} | DevNest</title>
+
+        <meta name="description" content={post.content.slice(0, 150)} />
+      </Helmet>
     <section className="min-h-screen bg-gray-50 dark:bg-gray-950 py-10">
       <div className="max-w-4xl mx-auto bg-white dark:bg-gray-900 rounded-2xl shadow p-6 md:p-8 border border-gray-100 dark:border-gray-800">
         <button
@@ -139,6 +145,7 @@ function PostDetailPage() {
         )}
       </div>
     </section>
+    </>
   );
 }
 
